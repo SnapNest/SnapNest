@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <h1>SnapNest</h1>
+      <div className='container'>SnapNest</div>
     </>
   )
 }
