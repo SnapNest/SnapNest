@@ -1,10 +1,10 @@
-import daisyui from 'daisyui'
+import daisyui from 'daisyui';
 
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
+    "./src/**/*.{html,js,jsx}",
     "./index.html",
-    "./src/**/*.{js,jsx}",
   ],
   theme: {
     extend: {},
@@ -13,6 +13,6 @@ export default {
     daisyui,
   ],
   daisyui: {
-    themes: ["retro"],
-  },
+    themes: ["retro"]
+  }
 }

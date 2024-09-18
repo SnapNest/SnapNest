@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    color: black;
+}
+
+body {
+    background-color: #ece6ba;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
