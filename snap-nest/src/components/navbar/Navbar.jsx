@@ -10,8 +10,8 @@ export default function Navbar() {
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn m-1 px-6 py-3 text-lg">User</div>
                         <ul tabIndex={0} className="text-lg dropdown-content menu rounded-box border border-[#283618] bg-[#ece6ba] z-[1] w-full p-2 shadow">
-                            <li className="menu-item">Profile</li>
-                            <li className="menu-item">Logout</li>
+                            <button className="menu-item">Profile</button>
+                            <button className="menu-item">Logout</button>
                         </ul>
                     </div>
                 </div>

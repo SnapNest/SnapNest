@@ -1,3 +1,6 @@
+import Login from "../../components/login/Login"
+import Register from "../../components/register/Register"
+
 export default function Home() {
 
     
@@ -12,8 +15,8 @@ export default function Home() {
           <div className="flex-1 text-4xl ml-3">
             Get started
               <div className="flex flex-row mt-5">
-                <button className="bg-[#283618] text-white px-4 py-2 rounded-lg mr-1 text-2xl">Register</button>
-                <button className="bg-[#283618] text-white px-4 py-2 rounded-lg ml-1 text-2xl">Log In</button>
+                <Register/>
+                <Login/>
               </div>
           </div>
         </div>
