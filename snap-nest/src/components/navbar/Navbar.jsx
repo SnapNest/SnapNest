@@ -9,7 +9,7 @@ export default function Navbar() {
 
     return (
         <>
-            <div className="navbar flex items-center bg-[#283618d8] fixed top-0 left-0 w-full border-b border-[#283618]">
+            <div className="navbar flex items-center bg-[#3d4e29] fixed top-0 left-0 w-full border-b border-[#283618]">
                 <div className="logo text-2xl ml-5">
                     SnapNest
                 </div>
