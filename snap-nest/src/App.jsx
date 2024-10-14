@@ -10,13 +10,17 @@ function App() {
   return (
     <>
     <BrowserRouter>
+      <div className='flex flex-col w-full h-screen'>
       <Navbar/>
-        <div className="content mt-36 flex flex-row w-full h-screen">
-          <Sidenav/>
+        <div className="content flex flex-row w-full h-screen">
+          <Sidenav />
+          <div className="flex flex-grow h-full">
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/main' element={<Main />} />
           </Routes>
+        </div>
+        </div>
         </div>
     </BrowserRouter>
     </>

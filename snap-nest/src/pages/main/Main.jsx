@@ -2,9 +2,9 @@
 
 const Main = () => {
     return (
-        <div className="bg-[#ada45a]">
+        <div className="bg-[#ada35a71] flex-grow h-full">
             <div className="bg-[#bd803a]">
-                <h1 className="text-3xl">SnapNest</h1>
+                gagagaga
             </div>
             <main className="p-4">
                 <div className="">
