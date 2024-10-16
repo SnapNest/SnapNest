@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../state/authcontext/AuthContext';
 import { loginUser } from '../../firebase/auth';
 
@@ -10,15 +10,17 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
-        e.preventDefault(); // Prevent the form from refreshing the page
+        e.preventDefault();
         setLoading(true);
         setError("");
 
         try {
             await loginUser(email, password);
-            console.log("User logged in successfully");
+            alert("User logged in successfully");
+            navigate("/main");
         } catch {
             setError(error.message);
         } finally {
