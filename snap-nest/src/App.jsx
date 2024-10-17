@@ -4,6 +4,7 @@ import Navbar from './components/navbar/Navbar';
 import Main from './pages/main/Main';
 import Sidenav from './components/sidenav/Sidenav';
 import { AuthProvider, useAuth } from './state/authcontext/AuthContext';
+import ProtectedRoute from './components/protectedroute/ProtectedRoute';
 
 function AppContent() {
   const { userLoggedIn } = useAuth();
@@ -15,7 +16,11 @@ function AppContent() {
         {userLoggedIn && <Sidenav />}
         <div className="flex flex-grow h-full">
           <Routes>
-            <Route path='/' element={<Home />} />
+          <Route path='/' element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            } />
             <Route path='/main' element={<Main />} />
           </Routes>
         </div>
