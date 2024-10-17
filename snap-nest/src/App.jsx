@@ -16,12 +16,8 @@ function AppContent() {
         {userLoggedIn && <Sidenav />}
         <div className="flex flex-grow h-full">
           <Routes>
-          <Route path='/' element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            } />
-            <Route path='/main' element={<Main />} />
+            <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path='/main' element={<ProtectedRoute><Main /></ProtectedRoute>} />
           </Routes>
         </div>
       </div>
