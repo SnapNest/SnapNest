@@ -7,7 +7,11 @@ export default {
     "./index.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '104': '26rem',
+      },
+    },
   },
   plugins: [
     daisyui,

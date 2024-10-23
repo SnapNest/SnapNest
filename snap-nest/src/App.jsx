@@ -5,6 +5,7 @@ import Main from './pages/main/Main';
 import Sidenav from './components/sidenav/Sidenav';
 import { AuthProvider, useAuth } from './state/authcontext/AuthContext';
 import ProtectedRoute from './components/protectedroute/ProtectedRoute';
+import MyProfile from './pages/mypfrofile/MyProfile';
 
 function AppContent() {
   const { userLoggedIn } = useAuth();
@@ -18,6 +19,7 @@ function AppContent() {
           <Routes>
             <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path='/main' element={<ProtectedRoute><Main /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
           </Routes>
         </div>
       </div>
