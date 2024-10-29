@@ -29,14 +29,27 @@ const Post = ({ name, image, description, postId }) => {
     }, [postId, currentUser]);
 
     const handleLike = async () => {
+        const postRef = ref(database, `posts/${postId}`);
+        const snapshot = await get(postRef);
+        const postData = snapshot.val();
+        const likedBy = postData.likedBy || [];
+
         if (likedByUser) {
             setLikes(likes - 1);
             setLikedByUser(false);
-            await removeLikeFromDatabase(postId, currentUser.uid);
+            const updatedLikedBy = likedBy.filter(uid => uid !== currentUser.uid);
+            await update(postRef, {
+                likes: likes - 1,
+                likedBy: updatedLikedBy
+            });
         } else {
             setLikes(likes + 1);
             setLikedByUser(true);
-            await addLikeToDatabase(postId, currentUser.uid);
+            likedBy.push(currentUser.uid);
+            await update(postRef, {
+                likes: likes + 1,
+                likedBy: likedBy
+            });
         }
     };
 
@@ -96,6 +109,8 @@ const Post = ({ name, image, description, postId }) => {
                                 text={cmt.text}
                                 userId={cmt.userId}
                                 timestamp={cmt.timestamp}
+                                likes={cmt.likes}
+                                likedBy={cmt.likedBy}
                             />
                         ))}
                     </div>
