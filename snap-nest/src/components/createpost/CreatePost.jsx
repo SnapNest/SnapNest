@@ -77,7 +77,11 @@ const CreatePost = () => {
                 username: username,
                 userId: user.uid
             },
-            photoURL: photoURL
+            photoURL: photoURL,
+            likes: 0,
+            likedBy: [],
+            comments: [],
+            commentedBy: []
         };
 
         try {

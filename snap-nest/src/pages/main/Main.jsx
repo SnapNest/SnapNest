@@ -25,14 +25,17 @@ const Main = () => {
                 <CreatePost />
                 <div className="flex justify-center w-full bg-[#bd803a]">
                     <div className="max-w-xl mt-4 w-full">
-                        {posts.map(post => (
-                            <Post
-                                key={post.id}
-                                name={post.user.username}
-                                image={post.photoURL}
-                                description={post.content}
-                            />
-                        ))}
+                        {posts.map(post => {
+                            return (
+                                <Post
+                                    key={post.id}
+                                    name={post.user?.username || 'Anonymous'}
+                                    image={post.photoURL}
+                                    description={post.content}
+                                    postId={post.id}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
