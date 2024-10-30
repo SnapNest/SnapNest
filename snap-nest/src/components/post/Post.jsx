@@ -4,14 +4,17 @@ import { useAuth } from '../../state/authcontext/AuthContext';
 import { addLikeToDatabase, removeLikeFromDatabase } from '../../services/postService';
 import { ref, get, update } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
+import { useNavigate } from 'react-router-dom';
 import Comment from '../comment/Comment';
 
-const Post = ({ name, image, description, postId }) => {
+const Post = ({ name, image, description, postId, userId }) => {
     const { currentUser } = useAuth();
     const [likes, setLikes] = useState(0);
     const [likedByUser, setLikedByUser] = useState(false);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
+    const [visibleComments, setVisibleComments] = useState(2);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPostData = async () => {
@@ -72,10 +75,22 @@ const Post = ({ name, image, description, postId }) => {
         }
     };
 
+    const handleShowMoreComments = () => {
+        setVisibleComments(visibleComments + 3);
+    };
+
+    const handleAuthorClick = () => {
+        navigate(`/userdetails/${userId}`);
+    };
+
     return (
         <div className="card w-full h-auto bg-base-100 shadow-xl mb-4">
             <div className="card-body">
-                <h2 className="card-title">{name}</h2>
+                <h2 className="card-title">
+                    <button className="text-blue-500" onClick={handleAuthorClick}>
+                        {name}
+                    </button>
+                </h2>
                 {image && (
                     <figure>
                         <img src={image} alt="Post" className="w-full h-auto" />
@@ -101,7 +116,7 @@ const Post = ({ name, image, description, postId }) => {
                         </button>
                     </div>
                     <div className="mt-4">
-                        {comments.map((cmt, index) => (
+                        {comments.slice(0, visibleComments).map((cmt, index) => (
                             <Comment
                                 key={index}
                                 commentId={index.toString()}
@@ -110,9 +125,14 @@ const Post = ({ name, image, description, postId }) => {
                                 userId={cmt.userId}
                                 timestamp={cmt.timestamp}
                                 likes={cmt.likes}
-                                likedBy={cmt.likedBy}
+                                likedBy={cmt.likedBy || []}
                             />
                         ))}
+                        {visibleComments < comments.length && (
+                            <button className="btn btn-link mt-2" onClick={handleShowMoreComments}>
+                                More Comments
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -125,6 +145,7 @@ Post.propTypes = {
     image: PropTypes.string,
     description: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
 };
 
 export default Post;
