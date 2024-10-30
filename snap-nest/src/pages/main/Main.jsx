@@ -45,7 +45,7 @@ const Main = () => {
                 <div className="flex justify-between w-full max-w-xl">
                     <CreatePost />
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn text-xl m-1" onClick={toggleDropdown}>Sort By</label>
+                        <label tabIndex={0} className="btn m-1" onClick={toggleDropdown}>Sort By</label>
                         {isDropdownOpen && (
                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-50">
                                 <li><button onClick={() => handleSortChange('Newest')}>Newest</button></li>
@@ -60,6 +60,7 @@ const Main = () => {
                         {posts.map(post => (
                             <Post
                                 key={post.id}
+                                title={post.title || 'Untitled'}
                                 name={post.user?.username || 'Anonymous'}
                                 image={post.photoURL}
                                 description={post.content}

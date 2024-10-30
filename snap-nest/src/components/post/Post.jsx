@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../state/authcontext/AuthContext';
-import { addLikeToDatabase, removeLikeFromDatabase } from '../../services/postService';
 import { ref, get, update } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
 import { useNavigate } from 'react-router-dom';
 import Comment from '../comment/Comment';
 import defaultUser from '../../photos/defaultUser.jpg';
 
-const Post = ({ name, image, description, postId, userId }) => {
+const Post = ({ title, name, image, description, postId, userId }) => {
     const { currentUser } = useAuth();
     const [likes, setLikes] = useState(0);
     const [likedByUser, setLikedByUser] = useState(false);
@@ -104,6 +103,7 @@ const Post = ({ name, image, description, postId, userId }) => {
                         {name}
                     </button>
                 </div>
+                <h2 className="text-xl font-bold mt-2">{title}</h2>
                 {image && (
                     <figure>
                         <img src={image} alt="Post" className="w-full h-auto" />
@@ -154,6 +154,7 @@ const Post = ({ name, image, description, postId, userId }) => {
 };
 
 Post.propTypes = {
+    title: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     image: PropTypes.string,
     description: PropTypes.string.isRequired,

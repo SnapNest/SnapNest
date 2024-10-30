@@ -170,6 +170,7 @@ const MyProfile = () => {
                     {userPosts.length > 0 ? (
                         userPosts.map(post => (
                             <Post
+                                title={post.title}
                                 key={post.id}
                                 name={username}
                                 image={post.photoURL}

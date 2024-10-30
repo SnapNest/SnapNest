@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ref, get, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
-import Post from '../../components/post/Post';
+import Post from '../../components/post/Post'; // Import the Post component
 
 const UserDetails = () => {
     const { userId } = useParams();
@@ -72,6 +72,7 @@ const UserDetails = () => {
                         userPosts.map(post => (
                             <Post
                                 key={post.id}
+                                title={post.title}
                                 name={userData.username || 'Anonymous'}
                                 image={post.photoURL}
                                 description={post.content}

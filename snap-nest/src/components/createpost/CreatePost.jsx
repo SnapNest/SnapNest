@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ref as dbRef, push, get } from 'firebase/database';
-import { ref as storageRef, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { auth, database, storage } from '../../firebase/firebase-config';
+import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 
 const CreatePost = () => {
+    const [postTitle, setPostTitle] = useState('');
     const [postContent, setPostContent] = useState('');
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -15,14 +16,13 @@ const CreatePost = () => {
         setLoading(true);
         setError('');
 
-        if (!postContent.trim() && !photo) {
-            setError("Post content or photo can't be empty.");
+        if (!postTitle.trim() || !postContent.trim()) {
+            setError("Post title and content can't be empty.");
             setLoading(false);
             return;
         }
 
         const user = auth.currentUser;
-        console.log('Current User:', user);
         if (!user) {
             setError('You must be logged in to create a post.');
             setLoading(false);
@@ -43,8 +43,8 @@ const CreatePost = () => {
 
         let photoURL = '';
         if (photo) {
-            const storageReference = storageRef(storage, `posts/${user.uid}/${photo.name}`);
-            const uploadTask = uploadBytesResumable(storageReference, photo);
+            const storageRef = dbRef(storage, `posts/${user.uid}/${photo.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, photo);
 
             try {
                 await new Promise((resolve, reject) => {
@@ -71,6 +71,7 @@ const CreatePost = () => {
         const postRef = dbRef(database, 'posts');
 
         const newPost = {
+            title: postTitle,
             content: postContent,
             createdAt: Date.now(),
             user: {
@@ -86,6 +87,7 @@ const CreatePost = () => {
 
         try {
             await push(postRef, newPost);
+            setPostTitle('');
             setPostContent('');
             setPhoto(null);
             setModalVisible(false);
@@ -125,6 +127,19 @@ const CreatePost = () => {
                             {error && <p className="text-red-500 mb-4">{error}</p>}
                             <form onSubmit={handleCreatePost}>
                                 <div className="form-control">
+                                    <label className="label" htmlFor="post-title">
+                                        <span className="label-text">Post Title</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="post-title"
+                                        className="input input-bordered"
+                                        placeholder="Enter the title"
+                                        value={postTitle}
+                                        onChange={(e) => setPostTitle(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-control mt-4">
                                     <label className="label" htmlFor="post-content">
                                         <span className="label-text">Post Content</span>
                                     </label>
