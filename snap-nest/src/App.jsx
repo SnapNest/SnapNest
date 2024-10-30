@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from './state/authcontext/AuthContext';
 import ProtectedRoute from './components/protectedroute/ProtectedRoute';
 import MyProfile from './pages/mypfrofile/MyProfile';
 import UserDetails from './pages/userdetails/UserDetails';
+import Search from './components/search/Search';
 
 function AppContent() {
   const { userLoggedIn } = useAuth();
@@ -22,6 +23,7 @@ function AppContent() {
             <Route path='/main' element={<ProtectedRoute><Main /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><MyProfile /></ProtectedRoute>} />
             <Route path="/userdetails/:userId" element={<ProtectedRoute><UserDetails /></ProtectedRoute>} />
+            <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
           </Routes>
         </div>
       </div>
