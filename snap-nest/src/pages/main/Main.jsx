@@ -32,7 +32,7 @@ const Main = () => {
             sortedPosts.sort((a, b) => b.likes - a.likes);
         }
         setPosts(sortedPosts);
-        setIsDropdownOpen(false); // Close the dropdown after selecting a sort option
+        setIsDropdownOpen(false);
     };
 
     const toggleDropdown = () => {

@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../state/authcontext/AuthContext';
-import { ref, get, update } from 'firebase/database';
+import { ref, get, update, query, orderByChild, equalTo } from 'firebase/database';
 import { database, storage } from '../../firebase/firebase-config';
 import { getDownloadURL, uploadBytesResumable, ref as storageRef } from 'firebase/storage';
-import defaultUser from '../../photos/defaultUser.jpg'; // Import the default user image
+import defaultUser from '../../photos/defaultUser.jpg';
+import Post from '../../components/post/Post';
 
 const MyProfile = () => {
     const { currentUser } = useAuth();
     const [username, setUsername] = useState('');
-    const [photoURL, setPhotoURL] = useState(defaultUser); // Default to the default user image
+    const [photoURL, setPhotoURL] = useState(defaultUser);
     const [isEditing, setIsEditing] = useState(false);
     const [newUsername, setNewUsername] = useState('');
     const [newPhoto, setNewPhoto] = useState(null);
+    const [userPosts, setUserPosts] = useState([]);
 
     useEffect(() => {
         if (currentUser) {
@@ -22,14 +24,32 @@ const MyProfile = () => {
                     if (snapshot.exists()) {
                         const userData = snapshot.val();
                         setUsername(userData.username || 'Anonymous');
-                        setPhotoURL(userData.photoURL || defaultUser); // Use the user's photoURL or default image
+                        setPhotoURL(userData.photoURL || defaultUser);
                     }
                 } catch (error) {
                     console.error('Error fetching user data:', error);
                 }
             };
 
+            const fetchUserPosts = async () => {
+                const postsRef = query(ref(database, 'posts'), orderByChild('user/userId'), equalTo(currentUser.uid));
+                try {
+                    const snapshot = await get(postsRef);
+                    if (snapshot.exists()) {
+                        const postsData = snapshot.val();
+                        const postsArray = Object.keys(postsData).map(key => ({
+                            id: key,
+                            ...postsData[key]
+                        }));
+                        setUserPosts(postsArray);
+                    }
+                } catch (error) {
+                    console.error('Error fetching user posts:', error);
+                }
+            };
+
             fetchUserData();
+            fetchUserPosts();
         }
     }, [currentUser]);
 
@@ -141,6 +161,25 @@ const MyProfile = () => {
                                 Edit Details
                             </button>
                         </div>
+                    )}
+                </div>
+            </div>
+            <div className="card mt-4 p-12 bg-base-100 shadow-xl w-full max-w-2xl">
+                <div className="card-body">
+                    <h2 className="card-title text-2xl font-bold">My Posts</h2>
+                    {userPosts.length > 0 ? (
+                        userPosts.map(post => (
+                            <Post
+                                key={post.id}
+                                name={username}
+                                image={post.photoURL}
+                                description={post.content}
+                                postId={post.id}
+                                userId={currentUser.uid}
+                            />
+                        ))
+                    ) : (
+                        <p className="text-center mt-4">You have not posted anything yet.</p>
                     )}
                 </div>
             </div>
