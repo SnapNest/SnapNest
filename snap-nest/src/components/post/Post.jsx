@@ -6,6 +6,7 @@ import { ref, get, update } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
 import { useNavigate } from 'react-router-dom';
 import Comment from '../comment/Comment';
+import defaultUser from '../../photos/defaultUser.jpg';
 
 const Post = ({ name, image, description, postId, userId }) => {
     const { currentUser } = useAuth();
@@ -14,6 +15,7 @@ const Post = ({ name, image, description, postId, userId }) => {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [visibleComments, setVisibleComments] = useState(2);
+    const [photoURL, setPhotoURL] = useState(defaultUser);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,8 +30,18 @@ const Post = ({ name, image, description, postId, userId }) => {
             }
         };
 
+        const fetchUserData = async () => {
+            const userRef = ref(database, `users/${userId}`);
+            const userSnapshot = await get(userRef);
+            if (userSnapshot.exists()) {
+                const userData = userSnapshot.val();
+                setPhotoURL(userData.photoURL || defaultUser);
+            }
+        };
+
         fetchPostData();
-    }, [postId, currentUser]);
+        fetchUserData();
+    }, [postId, userId, currentUser]);
 
     const handleLike = async () => {
         const postRef = ref(database, `posts/${postId}`);
@@ -86,11 +98,12 @@ const Post = ({ name, image, description, postId, userId }) => {
     return (
         <div className="card w-full h-auto bg-base-100 shadow-xl mb-4">
             <div className="card-body">
-                <h2 className="card-title">
+                <div className="flex items-center">
+                    <img src={photoURL} alt="Profile" className="w-8 h-8 rounded-full mr-2" />
                     <button className="text-blue-500" onClick={handleAuthorClick}>
                         {name}
                     </button>
-                </h2>
+                </div>
                 {image && (
                     <figure>
                         <img src={image} alt="Post" className="w-full h-auto" />

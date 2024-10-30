@@ -4,10 +4,12 @@ import { useAuth } from '../../state/authcontext/AuthContext';
 import { logoutUser } from '../../firebase/auth';
 import { auth, database } from '../../firebase/firebase-config';
 import { ref, get } from 'firebase/database';
+import defaultUser from '../../photos/defaultUser.jpg';
 
 export default function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [username, setUsername] = useState('');
+    const [photoURL, setPhotoURL] = useState(defaultUser);
     const navigate = useNavigate();
     const { setCurrentUser, userLoggedIn } = useAuth();
 
@@ -34,6 +36,7 @@ export default function Navbar() {
                 if (snapshot.exists()) {
                     const userData = snapshot.val();
                     setUsername(userData.username || 'Anonymous');
+                    setPhotoURL(userData.photoURL || defaultUser);
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -61,11 +64,13 @@ export default function Navbar() {
                     <div className="dropdownbtn mr-5">
                         <div className="dropdown">
                             <div 
+                                id='dropdown'
                                 tabIndex={0} 
                                 role="button" 
-                                className="btn m-1 px-6 py-3 text-lg"
+                                className="btn m-1 px-6 py-3 text-lg flex items-center"
                                 onClick={toggleDropdown}
                             >
+                                <img src={photoURL} alt="Profile" className="w-8 h-8 rounded-full mr-2" />
                                 {username || 'User'}
                             </div>
                             {isDropdownOpen && (
