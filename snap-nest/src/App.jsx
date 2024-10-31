@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Navbar from './components/navbar/Navbar';
 import Main from './pages/main/Main';
-import Sidenav from './components/sidenav/Sidenav';
 import { AuthProvider, useAuth } from './state/authcontext/AuthContext';
 import ProtectedRoute from './components/protectedroute/ProtectedRoute';
 import MyProfile from './pages/mypfrofile/MyProfile';
