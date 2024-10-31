@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import Comment from '../comment/Comment';
 import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import defaultUser from '../../photos/defaultUser.jpg';
-import './Post.css';
 
 const Post = ({ title, name, image, description, postId, userId, className }) => {
     const { currentUser } = useAuth();
@@ -146,7 +145,7 @@ const Post = ({ title, name, image, description, postId, userId, className }) =>
     };
 
     return (
-        <div className={`card w-full h-auto bg-base-100 shadow-xl mb-4 ${className}`}>
+        <div className={`card w-full h-auto bg-base-100 shadow-xl mb-4 border-2 border-[#c7c1a3] ${className}`}>
             <div className="card-body">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
