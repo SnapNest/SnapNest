@@ -16,7 +16,7 @@ function AppContent() {
     <div className='flex flex-col w-full h-screen'>
       <Navbar />
       <div className="content flex flex-row w-full h-screen">
-        {userLoggedIn && <Sidenav />}
+        
         <div className="flex flex-grow h-full">
           <Routes>
             <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
