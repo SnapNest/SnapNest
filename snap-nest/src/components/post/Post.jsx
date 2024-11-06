@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../state/authcontext/AuthContext';
-import { ref, get, update } from 'firebase/database';
+import { ref, get, update, remove } from 'firebase/database';
 import { database, storage } from '../../firebase/firebase-config';
 import { useNavigate } from 'react-router-dom';
 import Comment from '../comment/Comment';
@@ -144,6 +144,16 @@ const Post = ({ title, name, image, description, postId, userId, className }) =>
         }
     };
 
+    const handleDeletePost = async () => {
+        const postRef = ref(database, `posts/${postId}`);
+        try {
+            await remove(postRef);
+            navigate('/main');
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
+    };
+
     return (
         <div className={`card w-full h-auto bg-base-100 shadow-xl mb-4 border-2 border-[#c7c1a3] ${className}`}>
             <div className="card-body">
@@ -203,6 +213,9 @@ const Post = ({ title, name, image, description, postId, userId, className }) =>
                             </button>
                             <button className="btn btn-ghost" onClick={() => setIsEditing(false)}>
                                 Cancel
+                            </button>
+                            <button className="btn btn-danger ml-2" onClick={handleDeletePost}>
+                                Delete Post
                             </button>
                         </div>
                     </div>

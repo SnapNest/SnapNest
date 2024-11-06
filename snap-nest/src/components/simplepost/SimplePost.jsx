@@ -4,7 +4,7 @@ import { ref, get } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
 import defaultUser from '../../photos/defaultUser.jpg';
 
-const SimplePost = ({ title, name, description, userId }) => {
+const SimplePost = ({ title, name, description, userId, image }) => {
     const [photoURL, setPhotoURL] = useState(defaultUser);
 
     useEffect(() => {
@@ -34,6 +34,11 @@ const SimplePost = ({ title, name, description, userId }) => {
                         <p className="text-sm text-gray-500">by {name}</p>
                     </div>
                 </div>
+                {image && (
+                    <figure className="mt-4">
+                        <img src={image} alt="Post" className="w-full h-auto" />
+                    </figure>
+                )}
                 <p className="mt-2">{description}</p>
             </div>
         </div>
@@ -45,6 +50,7 @@ SimplePost.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
+    image: PropTypes.string,
 };
 
 export default SimplePost;

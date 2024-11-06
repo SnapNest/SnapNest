@@ -63,6 +63,7 @@ export default function Home() {
                 name={post.user?.username || 'Anonymous'}
                 description={post.content}
                 userId={post.user?.userId}
+                image={post.photoURL}
               />
             ))}
           </div>
