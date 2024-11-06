@@ -3,7 +3,7 @@ import { ref, get } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
 import Login from "../../components/login/Login";
 import Register from "../../components/register/Register";
-import SimplePost from '../../components/simplepost/SimplePost'; // Import SimplePost component
+import SimplePost from '../../components/simplepost/SimplePost';
 
 export default function Home() {
   const [randomPosts, setRandomPosts] = useState([]);
