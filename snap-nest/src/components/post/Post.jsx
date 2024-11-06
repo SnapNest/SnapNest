@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import Comment from '../comment/Comment';
 import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import defaultUser from '../../photos/defaultUser.jpg';
+import { formatDistanceToNow } from 'date-fns';
 
-const Post = ({ title, name, image, description, postId, userId, className }) => {
+const Post = ({ title, name, image, description, postId, userId, className, createdAt }) => {
     const { currentUser } = useAuth();
     const [likes, setLikes] = useState(0);
     const [likedByUser, setLikedByUser] = useState(false);
@@ -228,6 +229,9 @@ const Post = ({ title, name, image, description, postId, userId, className }) =>
                             </figure>
                         )}
                         <p>{description}</p>
+                        <p className="text-sm text-gray-500 mt-2">
+                            Posted {formatDistanceToNow(new Date(createdAt))} ago
+                        </p>
                     </>
                 )}
                 <div className="flex items-center mt-4">
@@ -281,6 +285,7 @@ Post.propTypes = {
     postId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
     className: PropTypes.string,
+    createdAt: PropTypes.number.isRequired,
 };
 
 export default Post;

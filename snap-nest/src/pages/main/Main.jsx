@@ -71,6 +71,7 @@ const Main = () => {
                                 description={post.content}
                                 postId={post.id}
                                 userId={post.user?.userId}
+                                createdAt={post.createdAt}
                             />
                         ))}
                         <div className="flex justify-center">

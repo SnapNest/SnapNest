@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ref as dbRef, push, get } from 'firebase/database';
+import { ref as storageRef, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { auth, database, storage } from '../../firebase/firebase-config';
-import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 
 const CreatePost = () => {
     const [postTitle, setPostTitle] = useState('');
@@ -43,8 +43,8 @@ const CreatePost = () => {
 
         let photoURL = '';
         if (photo) {
-            const storageRef = dbRef(storage, `posts/${user.uid}/${photo.name}`);
-            const uploadTask = uploadBytesResumable(storageRef, photo);
+            const photoRef = storageRef(storage, `posts/${user.uid}/${photo.name}`);
+            const uploadTask = uploadBytesResumable(photoRef, photo);
 
             try {
                 await new Promise((resolve, reject) => {
