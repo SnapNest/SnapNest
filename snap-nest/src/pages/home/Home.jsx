@@ -3,7 +3,7 @@ import { ref, get } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
 import Login from "../../components/login/Login";
 import Register from "../../components/register/Register";
-import SimplePost from '../../components/simplepost/SimplePost';
+import SimplePost from '../../components/simplepost/SimplePost'; // Import SimplePost component
 
 export default function Home() {
   const [randomPosts, setRandomPosts] = useState([]);
@@ -33,7 +33,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <div className="bg-[#ece6ba] min-h-screen flex">
       <div className="flex justify-center items-center h-screen">
         <div className="ml-20 flex flex-row items-center h-80">
           <div className="text-4xl mr-3">
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
       </div>
       <div className="w-0.5 h-full bg-[#283618] ml-72 mt-6 mb-6 mx-4"></div>
-      <div className="w-full mt-6 mb-24 rounded-md mr-12 bg-[#ece6ba] p-4">
+      <div className="w-full mt-6 mb-24 rounded-md mr-12 bg-[#ece6ba] p-4 flex-grow">
         <h1 className="text-2xl ml-80 mt-14 font-bold mb-4">Some of our recent posts:</h1>
         {randomPosts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-44 gap-4">
@@ -71,6 +71,6 @@ export default function Home() {
           <p>No posts available.</p>
         )}
       </div>
-    </>
+    </div>
   );
 }

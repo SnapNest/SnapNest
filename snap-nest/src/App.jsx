@@ -12,11 +12,10 @@ function AppContent() {
   const { userLoggedIn } = useAuth();
 
   return (
-    <div className='flex flex-col w-full h-screen'>
+    <div className='flex flex-col w-full min-h-screen'>
       <Navbar />
-      <div className="content flex flex-row w-full h-screen">
-        
-        <div className="flex flex-grow h-full">
+      <div className="content flex flex-row w-full flex-grow">
+        <div className="flex flex-grow">
           <Routes>
             <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path='/main' element={<ProtectedRoute><Main /></ProtectedRoute>} />
