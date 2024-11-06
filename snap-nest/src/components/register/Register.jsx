@@ -3,7 +3,8 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, database } from '../../firebase/firebase-config';
 import { set, ref } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -29,10 +30,11 @@ export default function Register() {
                 uid: user.uid
             });
 
-            console.log("User registered successfully");
+            toast.success("User registered successfully!");
             navigate("/main");
         } catch (error) {
             setError(error.message);
+            toast.error("Registration failed. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -40,6 +42,7 @@ export default function Register() {
 
     return (
         <>
+            <ToastContainer />
             <button className="bg-[#283618] text-white px-4 py-2 rounded-lg ml-1 text-2xl"
                 onClick={() => setModalVisible(true)}>
                 Register
