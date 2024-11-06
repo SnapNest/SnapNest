@@ -47,7 +47,7 @@ export default function Register() {
 
             {isModalVisible && (
                 <>
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="fixed inset-0 flex items-center justify-center bg-black z-40 bg-opacity-50">
                         <div className="bg-[#ece6ba] p-8 rounded-lg shadow-lg w-96 relative">
                             <button
                                 className="absolute top-2 right-2 text-[#283618] text-3xl mr-2 font-bold"
