@@ -3,7 +3,7 @@ import { ref, get } from 'firebase/database';
 import { database } from '../../firebase/firebase-config';
 import Login from "../../components/login/Login";
 import Register from "../../components/register/Register";
-import Post from '../../components/post/Post';
+import SimplePost from '../../components/simplepost/SimplePost';
 
 export default function Home() {
   const [randomPosts, setRandomPosts] = useState([]);
@@ -57,15 +57,12 @@ export default function Home() {
         {randomPosts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-44 gap-4">
             {randomPosts.map(post => (
-              <Post
+              <SimplePost
                 key={post.id}
                 title={post.title || 'Untitled'}
                 name={post.user?.username || 'Anonymous'}
-                image={post.photoURL}
                 description={post.content}
-                postId={post.id}
                 userId={post.user?.userId}
-                className="small-post"
               />
             ))}
           </div>

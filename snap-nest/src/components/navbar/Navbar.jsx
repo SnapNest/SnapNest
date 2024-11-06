@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../state/authcontext/AuthContext';
 import { logoutUser } from '../../firebase/auth';
 import { auth, database } from '../../firebase/firebase-config';
-import { ref, get, query, orderByChild, startAt, endAt } from 'firebase/database';
+import { ref, get } from 'firebase/database';
 
 export default function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -90,17 +90,21 @@ export default function Navbar() {
                 >
                     SnapNest
                 </div>
-                <div className="flex-grow flex justify-center">
-                    <form onSubmit={handleSearch} className="w-full max-w-md">
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            placeholder="Search by username or post title"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                    </form>
-                </div>
+
+                {userLoggedIn && (
+                    <div className="flex-grow flex justify-center">
+                        <form onSubmit={handleSearch} className="w-full max-w-md">
+                            <input
+                                type="text"
+                                className="input input-bordered w-full"
+                                placeholder="Search by username or post title"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </form>
+                    </div>
+                )}
+                
                 {userLoggedIn && (
                     <div className="dropdownbtn mr-5">
                         <div className="dropdown">
