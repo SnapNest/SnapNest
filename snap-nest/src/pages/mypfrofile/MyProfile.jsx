@@ -107,7 +107,7 @@ const MyProfile = () => {
     return (
         <div className="flex flex-col items-center flex-grow bg-base-200">
             <div className="flex flex-row w-full max-w-6xl mt-4 space-x-4">
-                <div className="card p-12 bg-base-100 shadow-xl w-full">
+                <div className="card p-12 bg-base-100 shadow-xl h-96 w-full">
                     <div className="card-body">
                         <h2 className="card-title text-2xl font-bold">My Profile</h2>
                         <div className="flex items-center mt-4">
